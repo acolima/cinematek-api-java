@@ -1,4 +1,4 @@
-package com.project.cinematek.security;
+package com.project.cinematek.config.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

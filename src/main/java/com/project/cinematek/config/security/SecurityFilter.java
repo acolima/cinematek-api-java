@@ -1,4 +1,4 @@
-package com.project.cinematek.security;
+package com.project.cinematek.config.security;
 
 import com.project.cinematek.repository.UserRepository;
 import jakarta.servlet.FilterChain;
