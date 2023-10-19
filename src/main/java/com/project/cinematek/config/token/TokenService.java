@@ -1,4 +1,4 @@
-package com.project.cinematek.config.security;
+package com.project.cinematek.config.token;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.project.cinematek.model.User;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -46,5 +47,11 @@ public class TokenService {
 
     private Instant generateExpirationDate() {
         return LocalDateTime.now().plusHours(24).toInstant(ZoneOffset.of("-03:00"));
+    }
+
+    public Integer getIdFromToken() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return user.getId();
     }
 }

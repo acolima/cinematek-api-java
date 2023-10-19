@@ -2,7 +2,7 @@ package com.project.cinematek.controller;
 
 import com.project.cinematek.dto.AuthenticationDTO;
 import com.project.cinematek.model.User;
-import com.project.cinematek.config.security.TokenService;
+import com.project.cinematek.config.token.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,8 +17,8 @@ public class AuthController {
     @Autowired
     TokenService tokenService;
 
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody AuthenticationDTO userData){
+    @PostMapping("login")
+    public ResponseEntity<String> login(@RequestBody AuthenticationDTO userData){
         var usernamePassword = new UsernamePasswordAuthenticationToken(userData.username(), userData.password());
 
         var auth = this.authenticationManager.authenticate(usernamePassword);
