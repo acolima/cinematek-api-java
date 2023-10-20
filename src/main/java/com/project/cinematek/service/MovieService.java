@@ -7,6 +7,10 @@ import com.project.cinematek.repository.UserMovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class MovieService {
     @Autowired
@@ -26,11 +30,26 @@ public class MovieService {
             userMovie.updateCategory(action, status);
             UserMovie updatedMovie = userMovieRepository.save(userMovie);
 
-            if(!updatedMovie.isFavorite() && !updatedMovie.isWatched() && !updatedMovie.isWatchlist()) {
+            if(!updatedMovie.isFavorite() && !updatedMovie.isWatched() && !updatedMovie.isWatchlist())
                 userMovieRepository.delete(updatedMovie);
-            }
         }
+    }
 
+    public UserMovie getMovie(Integer movieId, Integer userId) {
+        return userMovieRepository.findByUserIdAndMovieId(userId, movieId);
+    }
 
+    public Map<String, List<Movie>> getMovies(Integer userId) {
+        List<Movie> favoriteMovies = movieRepository.getFavoriteMovies(userId);
+        List<Movie> watchedMovies = movieRepository.getWatchedMovies(userId);
+        List<Movie> watchlistMovies = movieRepository.getWatchlistMovies(userId);
+
+        Map<String, List<Movie>> movies = new HashMap<>();
+
+        movies.put("watched", watchedMovies);
+        movies.put("favorite", favoriteMovies);
+        movies.put("watchlist", watchlistMovies);
+
+        return movies;
     }
 }

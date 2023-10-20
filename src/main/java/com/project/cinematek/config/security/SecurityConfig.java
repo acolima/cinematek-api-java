@@ -29,7 +29,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req -> req
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/user/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/movies/**").permitAll()
                         .anyRequest()
                         .authenticated()
                 )
